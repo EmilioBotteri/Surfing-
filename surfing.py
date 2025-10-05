@@ -1,5 +1,5 @@
 
-import requests
+import requests, os
 from datetime import datetime, timedelta
 
 # ------------------------
@@ -14,9 +14,8 @@ spots = {
 }
 
 # Tu bot de Telegram
-TELEGRAM_TOKEN = "8204580135:AAGJYiVHCNMCASuKzchqKl5IvGwx6kNXl7Q"
-CHAT_ID = 6809954781
-
+TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+CHAT_ID = os.environ.get("CHAT_ID")
 # ------------------------
 # FUNCIONES
 # ------------------------
