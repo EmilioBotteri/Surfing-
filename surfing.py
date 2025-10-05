@@ -65,4 +65,8 @@ for spot, (lat, lon) in spots.items():
                            f"Dirección: {direccion}°\n"
                            f"Periodo: {periodo} s")
                 enviar_telegram(mensaje)
+                
+enviar_telegram("✅ Bot de olas ejecutado correctamente (test).")
+
+
 
