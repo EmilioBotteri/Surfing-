@@ -1,0 +1,38 @@
+name: Test Telegram
+
+on:
+  workflow_dispatch:  # Para ejecutarlo manualmente desde GitHub
+
+jobs:
+  test_telegram:
+    runs-on: ubuntu-latest
+    env:  # Declaramos los secrets a nivel de job
+      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+      CHAT_ID: ${{ secrets.CHAT_ID }}
+    steps:
+      - name: Clonar repo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Instalar requests
+        run: pip install requests
+
+      - name: Ejecutar test de Telegram
+        run: |
+          python - <<EOF
+          import os, requests
+
+          TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
+          CHAT_ID = os.environ.get("CHAT_ID")
+
+          r = requests.post(
+              f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage",
+              data={"chat_id": CHAT_ID, "text": "✅ Test desde GitHub Actions"}
+          )
+          print("Response code:", r.status_code)
+          print("Response body:", r.text)
+          EOF
