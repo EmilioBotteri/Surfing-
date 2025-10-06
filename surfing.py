@@ -16,6 +16,7 @@ spots = {
 # Tu bot de Telegram
 TELEGRAM_TOKEN = os.environ.get("TELEGRAM_TOKEN")
 CHAT_ID = os.environ.get("CHAT_ID")
+
 # ------------------------
 # FUNCIONES
 # ------------------------
@@ -27,7 +28,9 @@ def enviar_telegram(mensaje):
     url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
     payload = {"chat_id": CHAT_ID, "text": mensaje}
     try:
-        requests.post(url, data=payload)
+        r = requests.post(url, data=payload)
+        print("Telegram response code:", r.status_code)
+        print("Telegram response body:", r.text)
     except Exception as e:
         print("Error al enviar Telegram:", e)
 
