@@ -8,10 +8,6 @@ on:
 jobs:
   avisar_olas:
     runs-on: ubuntu-latest
-    env:  # <-- declaramos los secrets a nivel de job
-      TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
-      CHAT_ID: ${{ secrets.CHAT_ID }}
-      DEBUG_TEST: "1"  # Para que el script envíe el mensaje de test
     steps:
       - name: Clonar repo
         uses: actions/checkout@v4
@@ -24,11 +20,8 @@ jobs:
       - name: Instalar dependencias
         run: pip install requests
 
-      - name: Debug secrets
-        run: |
-          echo "CHAT_ID: $CHAT_ID"
-          echo "Token length: ${#TELEGRAM_TOKEN}"
-
-      - name: Ejecutar script
+      - name: Ejecutar script de olas
+        env:
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python surfing.py
-
